@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Main Page</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="container mt-4">
+			<h1>URL Shortener Microservice</h1>
+			<blockquote class="blockquote">
+				<p><strong>User Story:</strong></p>
+				<p>I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.</p>
+				<o>When I visit that shortened URL, it will redirect me to my original link.</p>
+			</blockquote>
+			<div id="example">
+				<h3>Example Creation Usage:</h3>
+				<p><mark>https://localhost:3000/new/https://www.google.com</mark></p>
+				<p><mark>https://localhost:3000/new/http://foo.com:80</mark></p>
+
+				<h3>Example creation output</h3>
+				<p><mark>{ "original_url":"http://foo.com:80", "short_url":"https://little-url.herokuapp.com/8170" }</mark></p>
+
+				<h3>Usage:</h3>
+				<p><mark>https://localhost:3000/2871</mark></p>
+
+				<h3>Will Redirect To</h3>
+				<p><mark>https://www.google.com/</mark></p>
+				<p><mark></mark></p>
+			</div>
+		</div>
+
+
+		<script
+  		src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  		integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+  		crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	</body>
+</html>
