@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var validUrl = require('valid-url');
 mongoose.connect('mongodb://localhost:27017/url');
 var db = mongoose.connection;
 var app = express();
