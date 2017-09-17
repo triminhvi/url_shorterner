@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Url = require('../models/url.js');
 var validUrl = require('valid-url');
+var mongoose = require('mongoose');
 
 
 router.get('/', function (req,res){
@@ -12,27 +13,36 @@ router.get('/*', function (req,res){
 	
 	// Need to valid url
 	if(validUrl.isUri(link)){ // if link is valid
-		Url.findOne({},{'original_url': 1, 'short_url': 1, '_id':0}, function (err, url){
-				if(err){
-					console.log(err);
-				} else if(!url){ // if no url is found
-					// this case is currently not working - check back later
-					var newId = parseInt(Url.count()) + 1;
-					var newUrl = new Url({
-						original_url: link,
-						short_url: "http://localhost:3000/" + newId
-					});
-					newUrl.save(function (err){
-						if(err){
-							console.log('Cannot save newURL');
-						}
-						console.log('newUrl has been saved');
-					})
-					res.send(newUrl);
-				} else { // if found
-					console.log("Found url");
-					res.send(url);
-				}
+		console.log("This is from link: " + link);
+		Url.findOne({original_url: link}, function (err, url){
+			if(err){
+				console.log(err);
+			} 
+			console.log(url);
+			if(url){
+				console.log("Found Url")
+				res.send(url);
+			} else if(!url){
+				Url.count({}, function(err, count){
+					if(err){
+						console.log(err);
+					} else {
+						var newId = count;
+						var newUrl = new Url({
+							original_url: link,
+							short_url: "http://localhost:3000/" + newId
+						});
+						newUrl.save(function(err){
+							if(err){
+								console.log(err);
+								return;
+							}
+							console.log('newUrl has been saved');
+						})
+						res.send(newUrl);
+					}
+				});
+			}
 		});
 	} else { // if the link is invalid
 		var obj = {
