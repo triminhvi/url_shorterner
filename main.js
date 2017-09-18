@@ -29,6 +29,25 @@ app.get('/', function (req,res){
 	res.render('mainpage');
 });
 
+//Redirect the short url link to original link
+app.get('/test/:id', function (req, res){
+	var id = req.params.id;
+	console.log(id);
+	var shortUrl = "http://localhost:3000/test/" + id;
+	Url.findOne({short_url: shortUrl}, function (err, url){
+		if(err){
+			console.log(err);
+			res.send({
+				original_url: "error",
+				short_url: "error"
+			})
+		}
+		//var originalLink = url.original_url;
+		console.log("This is from id: " + url);
+		res.redirect(url.original_url);
+	});
+});
+
 
 
 app.listen(process.env.PORT || 3000, function(err){

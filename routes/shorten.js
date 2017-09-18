@@ -30,7 +30,7 @@ router.get('/*', function (req,res){
 						var newId = count;
 						var newUrl = new Url({
 							original_url: link,
-							short_url: "http://localhost:3000/" + newId
+							short_url: "http://localhost:3000/test/" + newId
 						});
 						newUrl.save(function(err){
 							if(err){
